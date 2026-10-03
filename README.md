@@ -61,6 +61,38 @@ php artisan make:action Users/CreateUser
 
 Existing actions are preserved. Pass `--force` to overwrite an existing action.
 
+### Set Up Pint
+
+Run this command in your Laravel application:
+
+```bash
+php artisan default:pint
+```
+
+It runs Composer to install `laravel/pint` as a development dependency, then copies
+the package's `stubs/pint.json.stub` to the application's root `pint.json`.
+The package's own Pint dependency and root configuration are for internal use.
+
+If `pint.json` already exists, the command stops before running Composer. Use
+`--force` (or `-f`) to replace it with the package defaults. If Composer fails,
+the configuration is left unchanged.
+
+The configuration extends Laravel's preset with strict types, additional blank
+lines before control statements, imports for global classes, trailing commas in
+multiline lists, and one argument or parameter per line in multiline signatures
+and calls. It also groups class members by kind and visibility, separates trait
+imports, adds separators to large numbers, and removes empty attribute
+parentheses. It simplifies redundant branches, boolean returns, null-coalescing
+assignments, and repeated `isset`/`unset` operations; converts suitable callbacks
+to arrow functions; and uses `array<Type>` in PHPDoc. Blade formatting is not enabled.
+
+Run the formatter or check formatting without modifying files:
+
+```bash
+vendor/bin/pint
+vendor/bin/pint --test
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

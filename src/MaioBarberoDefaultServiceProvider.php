@@ -7,6 +7,7 @@ namespace MaioBarberoDefault\MaioBarberoDefault;
 use Illuminate\Support\ServiceProvider;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\ActionMakeCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\MaioBarberoDefaultCommand;
+use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\PintInstallCommand;
 
 class MaioBarberoDefaultServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,7 @@ class MaioBarberoDefaultServiceProvider extends ServiceProvider
         $this->commands([
             ActionMakeCommand::class,
             MaioBarberoDefaultCommand::class,
+            PintInstallCommand::class,
         ]);
     }
 }

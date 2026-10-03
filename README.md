@@ -36,7 +36,30 @@ php artisan vendor:publish --tag="default-config"
 
 ## Usage
 
-<!-- Add a basic usage example here. -->
+Generate an action class:
+
+```bash
+php artisan make:action CreateUser
+```
+
+This creates `app/Actions/CreateUser.php` as a final, readonly class with strict
+types and an empty `handle(): void` method.
+
+Add `--transaction` (or `-t`) to import the `DB` facade and wrap the method body
+in `DB::transaction()`:
+
+```bash
+php artisan make:action CreateUser --transaction
+php artisan make:action CreateUser -t
+```
+
+Use a nested name to organize actions into subdirectories:
+
+```bash
+php artisan make:action Users/CreateUser
+```
+
+Existing actions are preserved. Pass `--force` to overwrite an existing action.
 
 ## Changelog
 

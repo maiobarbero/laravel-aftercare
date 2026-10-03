@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MaioBarberoDefault\MaioBarberoDefault;
 
 use Illuminate\Support\ServiceProvider;
+use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\ActionMakeCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\MaioBarberoDefaultCommand;
 
 class MaioBarberoDefaultServiceProvider extends ServiceProvider
@@ -33,6 +34,7 @@ class MaioBarberoDefaultServiceProvider extends ServiceProvider
         ], ['default', 'default-config']);
 
         $this->commands([
+            ActionMakeCommand::class,
             MaioBarberoDefaultCommand::class,
         ]);
     }

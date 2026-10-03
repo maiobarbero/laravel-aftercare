@@ -93,6 +93,59 @@ vendor/bin/pint
 vendor/bin/pint --test
 ```
 
+### Set Up PHPStan
+
+```bash
+php artisan default:phpstan
+```
+
+This installs `phpstan/phpstan` and `larastan/larastan` as development dependencies
+and copies `stubs/phpstan.neon.stub` to the application's root `phpstan.neon`.
+The configuration enables Larastan and Carbon support, analyses `app/` at level 8,
+and stores its cache in `storage/framework/cache/phpstan`.
+
+The stub includes its extensions explicitly. If your application already uses
+`phpstan/extension-installer` to load Larastan and Carbon, remove the generated
+configuration's `includes` section to avoid loading those extensions twice.
+
+Run the analysis with:
+
+```bash
+vendor/bin/phpstan analyse
+```
+
+Existing `phpstan.neon`, `phpstan.neon.dist`, or `phpstan.dist.neon` files stop the
+installer before Composer runs. Use `--force` (or `-f`) to write the package's
+`phpstan.neon`; existing distribution files remain in place, but PHPStan gives
+`phpstan.neon` priority.
+
+### Set Up Rector
+
+```bash
+php artisan default:rector
+```
+
+This installs `rector/rector` as a development dependency and copies
+`stubs/rector.php.stub` to the application's root `rector.php`. The configuration
+uses the PHP version declared in the application's `composer.json` for
+modernization and enables code-quality, dead-code, type-declaration, early-return,
+and coding-style rule sets.
+
+Rector processes `app/`, `bootstrap/`, `config/`, `database/`, `routes/`, and
+`tests/`, excluding generated files in `bootstrap/cache/`.
+
+Preview suggested changes, then apply them and format the result:
+
+```bash
+vendor/bin/rector process --dry-run
+vendor/bin/rector process
+vendor/bin/pint
+```
+
+Existing `rector.php` files are preserved unless `--force` (or `-f`) is supplied.
+Both installers copy their configuration only after Composer succeeds; they do
+not run analysis or refactoring during installation.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

@@ -7,7 +7,9 @@ namespace MaioBarberoDefault\MaioBarberoDefault;
 use Illuminate\Support\ServiceProvider;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\ActionMakeCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\MaioBarberoDefaultCommand;
+use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\PhpStanInstallCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\PintInstallCommand;
+use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\RectorInstallCommand;
 
 class MaioBarberoDefaultServiceProvider extends ServiceProvider
 {
@@ -37,7 +39,9 @@ class MaioBarberoDefaultServiceProvider extends ServiceProvider
         $this->commands([
             ActionMakeCommand::class,
             MaioBarberoDefaultCommand::class,
+            PhpStanInstallCommand::class,
             PintInstallCommand::class,
+            RectorInstallCommand::class,
         ]);
     }
 }

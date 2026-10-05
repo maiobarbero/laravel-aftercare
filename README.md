@@ -1,6 +1,14 @@
-# Laravel Aftercare
+![Laravel Aftercare - An opinionated starting configuration for Laravel.](art/banner.png)
 
-An opinionated starting configuration for Laravel.
+# Laravel Aftercare
+**An opinionated starting configuration for Laravel.**
+
+<p align="center">
+  <a href="https://github.com/maiobarbero/laravel-aftercare/"><img src="https://github.com/maiobarbero/laravel-aftercare/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="https://packagist.org/packages/maiobarbero/laravel-aftercare"><img src="https://img.shields.io/packagist/v/maiobarbero/laravel-aftercare?style=flat" alt="Latest Version"></a>
+  <a href="https://packagist.org/packages/maiobarbero/laravel-aftercare"><img src="https://badge.laravel.cloud/php-badge/maiobarbero/laravel-aftercare?style=flat" alt="PHP Compatibility"></a>
+  <a href="https://packagist.org/packages/maiobarbero/laravel-aftercare"><img src="https://badge.laravel.cloud/badge/maiobarbero/laravel-aftercare?style=flat" alt="Laravel Compatibility"></a>
+</p>
 
 After `laravel new`, I usually repeat the same setup: Pint, Rector, PHPStan, a password policy, and a few defaults for models, dates, and production. Laravel Aftercare brings those choices into one package and one setup command.
 

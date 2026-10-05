@@ -16,12 +16,10 @@ This repository is a Laravel package. Keep the package focused, idiomatic, and e
 - Formatting check: `composer lint:check`
 - Static analysis: `composer analyse`
 - Pest tests: `composer test:unit`
-- Workbench build: `composer build`
-- Workbench server: `composer serve`
 
 ## Local Skills
 
-- `package-scaffold`: use when adding package capabilities or wiring them through the service provider, including commands, migrations, routes, config, views, translations, assets, middleware, publish tags, workbench files, and console-only behavior.
+- `package-scaffold`: use when adding package capabilities or wiring them through the service provider, including commands, migrations, routes, config, views, translations, assets, middleware, publish tags and console-only behavior.
 - `package-testing`: use when adding or changing package tests with Pest 4/5 and Orchestra Testbench.
 - `package-release`: use when preparing changelog, release notes, tags, or GitHub release workflow changes.
 - `package-compatibility`: use when reviewing code, dependencies, or CI against the PHP and Laravel support matrix.

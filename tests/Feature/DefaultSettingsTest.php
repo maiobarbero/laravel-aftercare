@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use MaioBarbero\LaravelAftercare\AftercareServiceProvider;
 
-afterEach(function () {
+afterEach(function (): void {
     Model::shouldBeStrict(false);
 
     Model::automaticallyEagerLoadRelationships(false);
@@ -23,7 +23,7 @@ afterEach(function () {
     Password::$defaultCallback = null;
 });
 
-it('applies the model, date, HTTP and password defaults when the application boots', function () {
+it('applies the model, date, HTTP and password defaults when the application boots', function (): void {
     expect(Model::preventsLazyLoading())->toBeTrue();
     expect(Model::preventsSilentlyDiscardingAttributes())->toBeTrue();
     expect(Model::preventsAccessingMissingAttributes())->toBeTrue();
@@ -41,7 +41,7 @@ it('applies the model, date, HTTP and password defaults when the application boo
     expect(Validator::make(['password' => 'ValidPassword123!'], ['password' => Password::defaults()])->passes())->toBeTrue();
 });
 
-it('forces HTTPS and prohibits destructive commands only in production', function () {
+it('forces HTTPS and prohibits destructive commands only in production', function (): void {
     $this->app['env'] = 'production';
     Http::swap(new Factory);
 
@@ -55,7 +55,7 @@ it('forces HTTPS and prohibits destructive commands only in production', functio
         ->assertFailed();
 });
 
-it('allows the defaults to be disabled without replacing application settings', function () {
+it('allows the defaults to be disabled without replacing application settings', function (): void {
     $this->app['env'] = 'production';
     Model::shouldBeStrict(false);
 
@@ -89,7 +89,7 @@ it('allows the defaults to be disabled without replacing application settings', 
     expect(Validator::make(['password' => 'simple'], ['password' => Password::defaults()])->passes())->toBeTrue();
 });
 
-it('uses the configured password requirements', function () {
+it('uses the configured password requirements', function (): void {
     config([
         'aftercare.password_defaults.min' => 16,
         'aftercare.password_defaults.mixed_case' => false,

@@ -11,18 +11,18 @@ dataset('quality tools', [
     'Rector' => ['aftercare:rector', 'Rector', 'rector.php', ['rector/rector']],
 ]);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $path = sys_get_temp_dir().'/aftercare-quality-'.bin2hex(random_bytes(8));
     File::ensureDirectoryExists($path);
     $this->app->setBasePath($path);
     File::put(base_path('composer.json'), '{"require": {"php": "^8.3"}}');
 });
 
-afterEach(function () {
+afterEach(function (): void {
     File::deleteDirectory(base_path());
 });
 
-it('installs the tool as a development dependency before copying its stub', function (string $command, string $tool, string $file, array $packages) {
+it('installs the tool as a development dependency before copying its stub', function (string $command, string $tool, string $file, array $packages): void {
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->once()->with(base_path())->andReturnSelf();
     $composer->shouldReceive('requirePackages')->once()
@@ -41,7 +41,7 @@ it('installs the tool as a development dependency before copying its stub', func
         ->toBe(File::get(__DIR__.'/../../stubs/'.$file.'.stub'));
 })->with('quality tools');
 
-it('preserves existing configuration without running Composer', function (string $command, string $tool, string $file) {
+it('preserves existing configuration without running Composer', function (string $command, string $tool, string $file): void {
     File::put(base_path($file), 'Existing configuration');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
@@ -52,7 +52,7 @@ it('preserves existing configuration without running Composer', function (string
     expect(File::get(base_path($file)))->toBe('Existing configuration');
 })->with('quality tools');
 
-it('replaces existing configuration when forced', function (string $command, string $tool, string $file, array $packages, string $option) {
+it('replaces existing configuration when forced', function (string $command, string $tool, string $file, array $packages, string $option): void {
     File::put(base_path($file), 'Existing configuration');
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->once()->with(base_path())->andReturnSelf();
@@ -66,7 +66,7 @@ it('replaces existing configuration when forced', function (string $command, str
         ->toBe(File::get(__DIR__.'/../../stubs/'.$file.'.stub'));
 })->with('quality tools')->with(['--force', '-f']);
 
-it('leaves configuration unchanged if Composer fails', function (string $command, string $tool, string $file, array $packages, bool $existingConfiguration) {
+it('leaves configuration unchanged if Composer fails', function (string $command, string $tool, string $file, array $packages, bool $existingConfiguration): void {
     if ($existingConfiguration) {
         File::put(base_path($file), 'Existing configuration');
     }
@@ -88,7 +88,7 @@ it('leaves configuration unchanged if Composer fails', function (string $command
     }
 })->with('quality tools')->with([true, false]);
 
-it('requires a Composer project before installing a tool', function (string $command, string $tool, string $file) {
+it('requires a Composer project before installing a tool', function (string $command, string $tool, string $file): void {
     File::delete(base_path('composer.json'));
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
@@ -99,7 +99,7 @@ it('requires a Composer project before installing a tool', function (string $com
     expect(File::exists(base_path($file)))->toBeFalse();
 })->with('quality tools');
 
-it('does not shadow an existing PHPStan distribution configuration', function (string $file) {
+it('does not shadow an existing PHPStan distribution configuration', function (string $file): void {
     File::put(base_path($file), 'Existing configuration');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 

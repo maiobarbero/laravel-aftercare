@@ -6,18 +6,18 @@ use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Output\OutputInterface;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $path = sys_get_temp_dir().'/aftercare-pint-'.bin2hex(random_bytes(8));
     File::ensureDirectoryExists($path);
     $this->app->setBasePath($path);
     File::put(base_path('composer.json'), '{"require": {}}');
 });
 
-afterEach(function () {
+afterEach(function (): void {
     File::deleteDirectory(base_path());
 });
 
-it('installs Pint as a development dependency and copies the configuration stub', function () {
+it('installs Pint as a development dependency and copies the configuration stub', function (): void {
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->once()->with(base_path())->andReturnSelf();
     $composer->shouldReceive('requirePackages')->once()
@@ -36,7 +36,7 @@ it('installs Pint as a development dependency and copies the configuration stub'
         ->toBe(File::get(__DIR__.'/../../stubs/pint.json.stub'));
 });
 
-it('preserves an existing configuration without running Composer', function () {
+it('preserves an existing configuration without running Composer', function (): void {
     File::put(base_path('pint.json'), '{"preset": "psr12"}');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
@@ -47,7 +47,7 @@ it('preserves an existing configuration without running Composer', function () {
     expect(File::get(base_path('pint.json')))->toBe('{"preset": "psr12"}');
 });
 
-it('replaces an existing configuration when forced', function (string $option) {
+it('replaces an existing configuration when forced', function (string $option): void {
     File::put(base_path('pint.json'), '{"preset": "psr12"}');
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->once()->with(base_path())->andReturnSelf();
@@ -61,7 +61,7 @@ it('replaces an existing configuration when forced', function (string $option) {
         ->toBe(File::get(__DIR__.'/../../stubs/pint.json.stub'));
 })->with(['--force', '-f']);
 
-it('does not write configuration when Composer fails', function (bool $existingConfiguration) {
+it('does not write configuration when Composer fails', function (bool $existingConfiguration): void {
     if ($existingConfiguration) {
         File::put(base_path('pint.json'), '{"preset": "psr12"}');
     }
@@ -83,7 +83,7 @@ it('does not write configuration when Composer fails', function (bool $existingC
     }
 })->with([true, false]);
 
-it('requires a Composer project before installing Pint', function () {
+it('requires a Composer project before installing Pint', function (): void {
     File::delete(base_path('composer.json'));
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 

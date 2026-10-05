@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 use MaioBarbero\LaravelAftercare\AftercareServiceProvider;
 use Symfony\Component\Console\Output\OutputInterface;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->app->getNamespace();
     $path = sys_get_temp_dir().'/aftercare-install-'.bin2hex(random_bytes(8));
     File::ensureDirectoryExists($path);
@@ -18,11 +18,11 @@ beforeEach(function () {
     (new AftercareServiceProvider($this->app))->boot();
 });
 
-afterEach(function () {
+afterEach(function (): void {
     File::deleteDirectory(base_path());
 });
 
-it('sets up all tools and publishes editable configuration and stubs', function () {
+it('sets up all tools and publishes editable configuration and stubs', function (): void {
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->times(3)->with(base_path())->andReturnSelf();
 
@@ -45,7 +45,7 @@ it('sets up all tools and publishes editable configuration and stubs', function 
     }
 });
 
-it('checks for conflicts before running any installer or publishing files', function (string $file) {
+it('checks for conflicts before running any installer or publishing files', function (string $file): void {
     File::ensureDirectoryExists(dirname(base_path($file)));
     File::put(base_path($file), 'Existing configuration');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
@@ -57,7 +57,7 @@ it('checks for conflicts before running any installer or publishing files', func
     expect(File::exists(base_path('stubs/aftercare')))->toBeFalse();
 })->with(['rector.php', 'phpstan.neon.dist', 'config/aftercare.php']);
 
-it('stops setup when an installer fails', function () {
+it('stops setup when an installer fails', function (): void {
     $composer = $this->mock(Composer::class);
     $composer->shouldReceive('setWorkingPath')->twice()->with(base_path())->andReturnSelf();
     $composer->shouldReceive('requirePackages')->once()->ordered()
@@ -75,7 +75,7 @@ it('stops setup when an installer fails', function () {
     expect(File::exists(config_path('aftercare.php')))->toBeFalse();
 });
 
-it('uses published stubs and preserves them when forcing a complete setup', function () {
+it('uses published stubs and preserves them when forcing a complete setup', function (): void {
     $this->artisan('vendor:publish', ['--tag' => 'aftercare-stubs'])->assertSuccessful();
 
     foreach (['pint.json', 'phpstan.neon', 'rector.php'] as $file) {

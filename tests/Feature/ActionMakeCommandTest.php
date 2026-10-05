@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\File;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->app->getNamespace();
     $this->app->useAppPath(sys_get_temp_dir().'/aftercare-actions-'.bin2hex(random_bytes(8)));
 });
 
-afterEach(function () {
+afterEach(function (): void {
     File::deleteDirectory(app_path());
 });
 
-it('generates an action without a transaction by default', function (string $name, string $path, string $namespace) {
+it('generates an action without a transaction by default', function (string $name, string $path, string $namespace): void {
     $this->artisan('make:action', ['name' => $name])
         ->assertSuccessful();
 
@@ -39,7 +39,7 @@ it('generates an action without a transaction by default', function (string $nam
     'fully qualified name' => ['App\\Actions\\Users\\CreateUser', 'Actions/Users/CreateUser.php', 'App\\Actions\\Users'],
 ]);
 
-it('generates an action with a transaction when requested', function (string $option) {
+it('generates an action with a transaction when requested', function (string $option): void {
     $this->artisan('make:action', ['name' => 'Users/CreateUser', $option => true])
         ->assertSuccessful();
 
@@ -65,7 +65,7 @@ it('generates an action with a transaction when requested', function (string $op
     PHP);
 })->with(['--transaction', '-t']);
 
-it('preserves an existing action', function () {
+it('preserves an existing action', function (): void {
     File::ensureDirectoryExists(app_path('Actions'));
     File::put(app_path('Actions/CreateUser.php'), '<?php // Existing action');
 
@@ -75,7 +75,7 @@ it('preserves an existing action', function () {
     expect(File::get(app_path('Actions/CreateUser.php')))->toBe('<?php // Existing action');
 });
 
-it('overwrites an existing action when forced', function () {
+it('overwrites an existing action when forced', function (): void {
     File::ensureDirectoryExists(app_path('Actions'));
     File::put(app_path('Actions/CreateUser.php'), '<?php // Existing action');
 

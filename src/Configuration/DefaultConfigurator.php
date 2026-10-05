@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rules\Password;
 
-final class DefaultConfigurator
+final readonly class DefaultConfigurator
 {
-    public function __construct(private readonly Application $app) {}
+    public function __construct(private Application $app) {}
 
     public function apply(): void
     {

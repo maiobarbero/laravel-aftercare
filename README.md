@@ -19,7 +19,7 @@ These are the defaults I want for my projects. The configuration and stubs are p
 Requires PHP 8.3+ and Laravel 12.8+ or 13.x. Run these commands inside your Laravel application:
 
 ```bash
-composer require maio-barbero/laravel-aftercare
+composer require maiobarbero/laravel-aftercare
 php artisan aftercare:install
 ```
 

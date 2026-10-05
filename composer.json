@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "maio-barbero/laravel-aftercare",
+    "name": "maiobarbero/laravel-aftercare",
     "description": "An opinionated starting configuration for Laravel, with Pint, PHPStan, Rector, and customizable application defaults.",
     "keywords": [
         "laravel",
@@ -10,7 +10,7 @@
         "larastan",
         "rector"
     ],
-    "homepage": "https://github.com/maio-barbero/laravel-aftercare",
+    "homepage": "https://github.com/maiobarbero/laravel-aftercare",
     "license": "MIT",
     "authors": [
         {

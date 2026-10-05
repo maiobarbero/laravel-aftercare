@@ -1,5 +1,24 @@
 # Release Notes
 
+## v0.1.0 - 2026-10-05
+
+### Laravel Aftercare - v0.1.0
+
+First release.
+
+#### Highlights
+
+* Add opinionated configuration for Pint, Rector, PHPStan
+* Add configuration file to set up default Laravel app behavior
+* 
+
+#### Installation
+
+```bash
+composer require maiobarbero/laravel-aftercare
+php artisan aftercare:install
+
+```
 ## Unreleased
 
 - Install Pint, PHPStan with Larastan, and Rector through `aftercare:install` or individual commands.

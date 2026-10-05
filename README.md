@@ -14,6 +14,8 @@ Default settings and packages to start a new Laravel Project
 
 ## Installation
 
+Requires PHP 8.3+ and Laravel 12.8+ or 13.x.
+
 You can install the package via Composer:
 
 ```bash
@@ -35,6 +37,28 @@ php artisan vendor:publish --tag="default-config"
 ```
 
 ## Usage
+
+### Application Defaults
+
+The package applies the settings in `config/default.php` after application
+providers have booted, for both web requests and Artisan commands. Publish the
+configuration with `php artisan vendor:publish --tag="default-config"` to customize
+them. Disable a setting to leave that behavior under the application's control.
+
+| Setting | Default behavior |
+| --- | --- |
+| Automatic eager loading | Batch-load accessed relationships to reduce N+1 queries. |
+| HTTPS | Generate HTTPS URLs in production. |
+| Immutable dates | Laravel's date factory uses `CarbonImmutable`. |
+| Stray HTTP requests | Block unfaked requests in the `testing` environment. |
+| Destructive commands | Prohibit `db:wipe`, `migrate:fresh`, `migrate:refresh`, `migrate:reset`, and `migrate:rollback` in production, including with `--force`. |
+| Strict models | Prevent lazy loading, silently discarded attributes, and missing-attribute access in every environment. |
+| Password defaults | Require 12 characters, mixed case, numbers, and symbols. |
+
+Use `Illuminate\Validation\Rules\Password::defaults()` in password validation to
+apply the shared policy. Its requirements are configurable under `password_defaults`.
+
+### Generate Actions
 
 Generate an action class:
 

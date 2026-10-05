@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MaioBarberoDefault\MaioBarberoDefault;
 
 use Illuminate\Support\ServiceProvider;
+use MaioBarberoDefault\MaioBarberoDefault\Configuration\DefaultConfigurator;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\ActionMakeCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\MaioBarberoDefaultCommand;
 use MaioBarberoDefault\MaioBarberoDefault\Console\Commands\PhpStanInstallCommand;
@@ -28,6 +29,10 @@ class MaioBarberoDefaultServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->booted(function (): void {
+            $this->app->make(DefaultConfigurator::class)->apply();
+        });
+
         if (! $this->app->runningInConsole()) {
             return;
         }

@@ -13,7 +13,7 @@ it('returns the same instance from the container', function () {
 });
 
 it('merges the package config', function () {
-    expect(config('default.placeholder'))->toBe('default');
+    expect(config('default.strict_models'))->toBeTrue();
 });
 
 it('registers the artisan command', function () {

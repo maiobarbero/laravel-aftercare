@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Console\Commands;
+namespace MaioBarbero\LaravelAftercare\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -10,7 +10,7 @@ use Illuminate\Support\Composer;
 
 class PhpStanInstallCommand extends Command
 {
-    protected $signature = 'default:phpstan
+    protected $signature = 'aftercare:phpstan
                             {--f|force : Write phpstan.neon even if PHPStan configuration already exists}';
 
     protected $description = 'Install PHPStan with Larastan and the default analysis configuration';
@@ -36,7 +36,8 @@ class PhpStanInstallCommand extends Command
             return self::FAILURE;
         }
 
-        $stub = $files->get(__DIR__.'/../../../stubs/phpstan.neon.stub');
+        $custom = base_path('stubs/aftercare/phpstan.neon.stub');
+        $stub = $files->get($files->isFile($custom) ? $custom : __DIR__.'/../../../stubs/phpstan.neon.stub');
 
         $composer->setWorkingPath(base_path());
 

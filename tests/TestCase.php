@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Tests;
+namespace MaioBarbero\LaravelAftercare\Tests;
 
-use MaioBarberoDefault\MaioBarberoDefault\MaioBarberoDefaultServiceProvider;
+use MaioBarbero\LaravelAftercare\AftercareServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -12,7 +12,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            MaioBarberoDefaultServiceProvider::class,
+            AftercareServiceProvider::class,
         ];
     }
 }

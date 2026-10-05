@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Configuration;
+namespace MaioBarbero\LaravelAftercare\Configuration;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Foundation\Application;
@@ -39,7 +39,7 @@ final class DefaultConfigurator
      */
     private function whenEnabled(string $key, callable $configure, bool $environmentMatches = true): self
     {
-        if ($environmentMatches && Config::boolean('default.'.$key, true)) {
+        if ($environmentMatches && Config::boolean('aftercare.'.$key, true)) {
             $configure();
         }
 
@@ -48,17 +48,17 @@ final class DefaultConfigurator
 
     private function configurePasswords(): void
     {
-        Password::defaults(static fn (): Password => Password::min(Config::integer('default.password_defaults.min', 12))
+        Password::defaults(static fn (): Password => Password::min(Config::integer('aftercare.password_defaults.min', 12))
             ->when(
-                Config::boolean('default.password_defaults.mixed_case', true),
+                Config::boolean('aftercare.password_defaults.mixed_case', true),
                 static fn (Password $rule): Password => $rule->mixedCase(),
             )
             ->when(
-                Config::boolean('default.password_defaults.numbers', true),
+                Config::boolean('aftercare.password_defaults.numbers', true),
                 static fn (Password $rule): Password => $rule->numbers(),
             )
             ->when(
-                Config::boolean('default.password_defaults.symbols', true),
+                Config::boolean('aftercare.password_defaults.symbols', true),
                 static fn (Password $rule): Password => $rule->symbols(),
             ));
     }

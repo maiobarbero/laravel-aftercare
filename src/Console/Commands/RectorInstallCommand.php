@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Console\Commands;
+namespace MaioBarbero\LaravelAftercare\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -10,7 +10,7 @@ use Illuminate\Support\Composer;
 
 class RectorInstallCommand extends Command
 {
-    protected $signature = 'default:rector
+    protected $signature = 'aftercare:rector
                             {--f|force : Replace an existing rector.php file}';
 
     protected $description = 'Install Rector and the default refactoring configuration';
@@ -31,7 +31,8 @@ class RectorInstallCommand extends Command
             return self::FAILURE;
         }
 
-        $stub = $files->get(__DIR__.'/../../../stubs/rector.php.stub');
+        $custom = base_path('stubs/aftercare/rector.php.stub');
+        $stub = $files->get($files->isFile($custom) ? $custom : __DIR__.'/../../../stubs/rector.php.stub');
 
         $composer->setWorkingPath(base_path());
 

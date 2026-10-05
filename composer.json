@@ -1,13 +1,16 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "maio-barbero/default",
-    "description": "Default settings and packages to start a new Laravel Project",
+    "name": "maio-barbero/laravel-aftercare",
+    "description": "An opinionated starting configuration for Laravel, with Pint, PHPStan, Rector, and customizable application defaults.",
     "keywords": [
         "laravel",
-        "maio-barbero",
-        "default"
+        "defaults",
+        "pint",
+        "phpstan",
+        "larastan",
+        "rector"
     ],
-    "homepage": "https://github.com/maio-barbero/default",
+    "homepage": "https://github.com/maio-barbero/laravel-aftercare",
     "license": "MIT",
     "authors": [
         {
@@ -18,7 +21,7 @@
     ],
     "require": {
         "php": "^8.3",
-        "illuminate/support": "^12.8||^13.0"
+        "laravel/framework": "^12.8||^13.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.9",
@@ -32,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "MaioBarberoDefault\\MaioBarberoDefault\\": "src/"
+            "MaioBarbero\\LaravelAftercare\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MaioBarberoDefault\\MaioBarberoDefault\\Tests\\": "tests/",
+            "MaioBarbero\\LaravelAftercare\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
@@ -87,7 +90,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MaioBarberoDefault\\MaioBarberoDefault\\MaioBarberoDefaultServiceProvider"
+                "MaioBarbero\\LaravelAftercare\\AftercareServiceProvider"
             ]
         }
     },

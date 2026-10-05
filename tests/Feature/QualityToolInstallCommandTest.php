@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Output\OutputInterface;
 
 dataset('quality tools', [
-    'PHPStan' => ['default:phpstan', 'PHPStan', 'phpstan.neon', ['phpstan/phpstan', 'larastan/larastan']],
-    'Rector' => ['default:rector', 'Rector', 'rector.php', ['rector/rector']],
+    'PHPStan' => ['aftercare:phpstan', 'PHPStan', 'phpstan.neon', ['phpstan/phpstan', 'larastan/larastan']],
+    'Rector' => ['aftercare:rector', 'Rector', 'rector.php', ['rector/rector']],
 ]);
 
 beforeEach(function () {
-    $path = sys_get_temp_dir().'/default-quality-'.bin2hex(random_bytes(8));
+    $path = sys_get_temp_dir().'/aftercare-quality-'.bin2hex(random_bytes(8));
     File::ensureDirectoryExists($path);
     $this->app->setBasePath($path);
     File::put(base_path('composer.json'), '{"require": {"php": "^8.3"}}');
@@ -103,7 +103,7 @@ it('does not shadow an existing PHPStan distribution configuration', function (s
     File::put(base_path($file), 'Existing configuration');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
-    $this->artisan('default:phpstan')
+    $this->artisan('aftercare:phpstan')
         ->expectsOutputToContain("{$file} already exists. Use --force to create phpstan.neon.")
         ->assertFailed();
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
-use MaioBarberoDefault\MaioBarberoDefault\MaioBarberoDefaultServiceProvider;
+use MaioBarbero\LaravelAftercare\AftercareServiceProvider;
 
 afterEach(function () {
     Model::shouldBeStrict(false);
@@ -45,7 +45,7 @@ it('forces HTTPS and prohibits destructive commands only in production', functio
     $this->app['env'] = 'production';
     Http::swap(new Factory);
 
-    (new MaioBarberoDefaultServiceProvider($this->app))->boot();
+    (new AftercareServiceProvider($this->app))->boot();
 
     expect(URL::to('/example'))->toStartWith('https://');
     expect(Http::preventingStrayRequests())->toBeFalse();
@@ -66,16 +66,16 @@ it('allows the defaults to be disabled without replacing application settings', 
     Password::defaults(fn (): Password => Password::min(6));
 
     config([
-        'default.automatically_eager_load_relationships' => false,
-        'default.force_https_in_production' => false,
-        'default.immutable_dates' => false,
-        'default.prevent_stray_requests_in_tests' => false,
-        'default.prohibit_destructive_commands_in_production' => false,
-        'default.strict_models' => false,
-        'default.password_defaults.enabled' => false,
+        'aftercare.automatically_eager_load_relationships' => false,
+        'aftercare.force_https_in_production' => false,
+        'aftercare.immutable_dates' => false,
+        'aftercare.prevent_stray_requests_in_tests' => false,
+        'aftercare.prohibit_destructive_commands_in_production' => false,
+        'aftercare.strict_models' => false,
+        'aftercare.password_defaults.enabled' => false,
     ]);
 
-    (new MaioBarberoDefaultServiceProvider($this->app))->boot();
+    (new AftercareServiceProvider($this->app))->boot();
 
     expect(Model::preventsLazyLoading())->toBeFalse();
     expect(Model::preventsSilentlyDiscardingAttributes())->toBeFalse();
@@ -91,10 +91,10 @@ it('allows the defaults to be disabled without replacing application settings', 
 
 it('uses the configured password requirements', function () {
     config([
-        'default.password_defaults.min' => 16,
-        'default.password_defaults.mixed_case' => false,
-        'default.password_defaults.numbers' => false,
-        'default.password_defaults.symbols' => false,
+        'aftercare.password_defaults.min' => 16,
+        'aftercare.password_defaults.mixed_case' => false,
+        'aftercare.password_defaults.numbers' => false,
+        'aftercare.password_defaults.symbols' => false,
     ]);
 
     expect(Validator::make(['password' => 'longerpassphrase'], ['password' => Password::defaults()])->passes())->toBeTrue();

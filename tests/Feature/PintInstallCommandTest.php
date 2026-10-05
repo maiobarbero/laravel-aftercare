@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Output\OutputInterface;
 
 beforeEach(function () {
-    $path = sys_get_temp_dir().'/default-pint-'.bin2hex(random_bytes(8));
+    $path = sys_get_temp_dir().'/aftercare-pint-'.bin2hex(random_bytes(8));
     File::ensureDirectoryExists($path);
     $this->app->setBasePath($path);
     File::put(base_path('composer.json'), '{"require": {}}');
@@ -28,7 +28,7 @@ it('installs Pint as a development dependency and copies the configuration stub'
             return true;
         });
 
-    $this->artisan('default:pint')
+    $this->artisan('aftercare:pint')
         ->expectsOutputToContain('Pint installed and pint.json created.')
         ->assertSuccessful();
 
@@ -40,7 +40,7 @@ it('preserves an existing configuration without running Composer', function () {
     File::put(base_path('pint.json'), '{"preset": "psr12"}');
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
-    $this->artisan('default:pint')
+    $this->artisan('aftercare:pint')
         ->expectsOutputToContain('pint.json already exists. Use --force to replace it.')
         ->assertFailed();
 
@@ -55,7 +55,7 @@ it('replaces an existing configuration when forced', function (string $option) {
         ->with(['laravel/pint', '--no-interaction'], true, Mockery::type(OutputInterface::class))
         ->andReturnTrue();
 
-    $this->artisan('default:pint', [$option => true])->assertSuccessful();
+    $this->artisan('aftercare:pint', [$option => true])->assertSuccessful();
 
     expect(File::get(base_path('pint.json')))
         ->toBe(File::get(__DIR__.'/../../stubs/pint.json.stub'));
@@ -72,7 +72,7 @@ it('does not write configuration when Composer fails', function (bool $existingC
         ->with(['laravel/pint', '--no-interaction'], true, Mockery::type(OutputInterface::class))
         ->andReturnFalse();
 
-    $this->artisan('default:pint', ['--force' => true])
+    $this->artisan('aftercare:pint', ['--force' => true])
         ->expectsOutputToContain('Pint installation failed. Configuration was not changed.')
         ->assertFailed();
 
@@ -87,7 +87,7 @@ it('requires a Composer project before installing Pint', function () {
     File::delete(base_path('composer.json'));
     $this->mock(Composer::class)->shouldNotReceive('requirePackages');
 
-    $this->artisan('default:pint')
+    $this->artisan('aftercare:pint')
         ->expectsOutputToContain('No composer.json found in the application root.')
         ->assertFailed();
 

@@ -8,4 +8,4 @@ Only the latest major version receives security fixes.
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within MaioBarbero Default, please send an email to Matteo Barbero at matteo.barbero.m@gmail.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Laravel Aftercare, please send an email to Matteo Barbero at matteo.barbero.m@gmail.com. All security vulnerabilities will be promptly addressed.

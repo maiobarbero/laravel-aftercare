@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Console\Commands;
+namespace MaioBarbero\LaravelAftercare\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -19,11 +19,10 @@ class ActionMakeCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        if ($this->option('transaction')) {
-            return __DIR__.'/../../../stubs/action.transaction.stub';
-        }
+        $stub = $this->option('transaction') ? 'action.transaction.stub' : 'action.stub';
+        $custom = base_path('stubs/aftercare/'.$stub);
 
-        return __DIR__.'/../../../stubs/action.stub';
+        return $this->files->isFile($custom) ? $custom : __DIR__.'/../../../stubs/'.$stub;
     }
 
     /**

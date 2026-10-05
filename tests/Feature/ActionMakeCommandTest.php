@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 
 beforeEach(function () {
     $this->app->getNamespace();
-    $this->app->useAppPath(sys_get_temp_dir().'/default-actions-'.bin2hex(random_bytes(8)));
+    $this->app->useAppPath(sys_get_temp_dir().'/aftercare-actions-'.bin2hex(random_bytes(8)));
 });
 
 afterEach(function () {

@@ -1,8 +1,8 @@
 # Release Notes
 
-## [Unreleased](https://github.com/maio-barbero/default/compare/v0.1.0...1.x)
+## Unreleased
 
-
-## [v0.1.0](https://github.com/maio-barbero/default/compare/...v0.1.0) - 202x-xx-xx
-
-Initial pre-release.
+- Install Pint, PHPStan with Larastan, and Rector through `aftercare:install` or individual commands.
+- Configure application defaults for relationships, HTTPS, dates, HTTP requests, destructive commands, passwords, and strict models.
+- Generate action classes with optional database transactions.
+- Publish configuration and override all five stubs in the application.

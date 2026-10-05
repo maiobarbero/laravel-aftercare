@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MaioBarberoDefault\MaioBarberoDefault\Console\Commands;
+namespace MaioBarbero\LaravelAftercare\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -10,7 +10,7 @@ use Illuminate\Support\Composer;
 
 class PintInstallCommand extends Command
 {
-    protected $signature = 'default:pint
+    protected $signature = 'aftercare:pint
                             {--f|force : Replace an existing pint.json file}';
 
     protected $description = 'Install Laravel Pint and the default formatting configuration';
@@ -31,7 +31,8 @@ class PintInstallCommand extends Command
             return self::FAILURE;
         }
 
-        $stub = $files->get(__DIR__.'/../../../stubs/pint.json.stub');
+        $custom = base_path('stubs/aftercare/pint.json.stub');
+        $stub = $files->get($files->isFile($custom) ? $custom : __DIR__.'/../../../stubs/pint.json.stub');
 
         $composer->setWorkingPath(base_path());
 

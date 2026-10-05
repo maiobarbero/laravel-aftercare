@@ -25,7 +25,8 @@ jobs:
           - '8.5'
 
         laravel:
-          - '^12.8'
+          # Avoid caret constraints: Windows composer.bat can strip the caret.
+          - '~12.8'
           - '13.*'
 
         stability:
@@ -33,7 +34,7 @@ jobs:
           - prefer-stable
 
         include:
-          - laravel: '^12.8'
+          - laravel: '~12.8'
             testbench: '10.*'
 
           - laravel: '13.*'
@@ -55,8 +56,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer require --dev "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress --no-scripts
 
-      - name: Run tests
+      - name: Run tests in parallel
+        if: runner.os != 'Windows'
         run: composer test:unit
+
+      # Testbench workers share bootstrap cache manifests; concurrent renames fail on Windows.
+      - name: Run tests on Windows
+        if: runner.os == 'Windows'
+        run: php vendor/bin/pest
